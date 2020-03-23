@@ -7,7 +7,7 @@ require(shiny)
 require(tidyverse)
 require(countrycode)
 
-# setwd('~/Documents/Coronavirus/COVID19CountryTrends')
+# setwd('~/Documents/Coronavirus/covid19-country-trends')
 
 # The AnthonyEbert repo lookup is for ISO country code lookups, given raw JH data doesn't offer codes and country names have been unstable
 cc = countrycode::codelist %>% as_tibble()
@@ -180,7 +180,7 @@ server = function(input, output, session){
                                    aes(date, stat, label = lab),
                                    direction = 'x', nudge_x = -1, segment.size = 0) +
           labs(col = NULL, x = NULL, y = ifelse(str_detect(plot_stat, fixed('ratio', ignore_case=T)),'Ratio','Cases')) + 
-          scale_y_custom() +
+          scale_y_custom(labels = scales::comma) +
           scale_color_discrete(guide = guide_legend(reverse = T)) +
           expand_limits(y = 0) +
           ggthemes::theme_pander() +
